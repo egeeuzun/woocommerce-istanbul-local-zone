@@ -149,6 +149,15 @@ resource "aws_autoscaling_group" "this" {
   lifecycle {
     ignore_changes = [desired_capacity]
   }
+
+  # Agent ECS API'ye instance rolunun policy'leriyle konusur. Destroy'da bu
+  # attachment'lar servisle ayni anda silinirse agent task'larin durdugunu
+  # bildiremez ve servis DRAINING'de kalir; ASG'ye (ve ondan capacity
+  # provider'a, servise) baglayinca once servis, en son policy'ler gider.
+  depends_on = [
+    aws_iam_role_policy_attachment.ecs,
+    aws_iam_role_policy_attachment.ssm,
+  ]
 }
 
 resource "aws_ecs_capacity_provider" "this" {
