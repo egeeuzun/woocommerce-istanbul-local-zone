@@ -46,7 +46,7 @@ module "main" {
 
   az_count = 2
 
-  db_instance_class   = "db.t3.micro"
+  db_instance_class   = "db.m7i.large"
   create_read_replica = var.create_read_replica
   enable_elasticache  = var.enable_elasticache
   desired_count       = 2

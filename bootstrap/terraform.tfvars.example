@@ -1,3 +1,0 @@
-# terraform.tfvars olarak kopyalayin (*.tfvars git'e girmez).
-budget_emails         = ["you@example.com"]
-budget_thresholds_usd = [30, 60, 100]
