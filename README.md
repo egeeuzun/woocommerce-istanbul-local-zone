@@ -147,7 +147,7 @@ been applied to an AWS account yet.
 | `lz/` | Root module for the Local Zone setup. |
 | `docs/adr/` | Decision records (why EC2 instead of Fargate, why MariaDB on EC2). |
 | `modules/` | The building blocks below. |
-| `../residency-guard/` | Separate repo, checked out next to this one: the read-only audit tool (Python, boto3) that reads `terraform output residency_guard`, and its reports. See its README (in Turkish). |
+| `../residency-guard/` | Separate repo ([egeeuzun/residency-guard](https://github.com/egeeuzun/residency-guard)), checked out next to this one: the read-only audit tool (Python, boto3) that reads `terraform output residency_guard`, and its reports. See its README (in Turkish). |
 | `docs/00-envanter.md` | Inventory of what this repo and the image deploy (in Turkish). |
 
 ## Modules
