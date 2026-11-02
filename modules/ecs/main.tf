@@ -80,6 +80,7 @@ resource "aws_appautoscaling_policy" "cpu" {
 }
 
 resource "aws_cloudwatch_log_group" "this" {
+  count             = local.on_ec2 ? 0 : 1
   name              = "/ecs/${var.name}-wordpress"
   retention_in_days = 30
 
@@ -385,11 +386,17 @@ resource "aws_ecs_task_definition" "wordpress" {
           readOnly      = false
         }
       ]
-
-      logConfiguration = {
+      # EC2'de (Local Zone) log instance'in diskinde kalir; LZ'de CloudWatch yok (RG-001)
+      logConfiguration = local.on_ec2 ? {
+        logDriver = "json-file"
+        options = {
+          max-size = "10m"
+          max-file = "5"
+        }
+        } : {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = aws_cloudwatch_log_group.this.name
+          awslogs-group         = aws_cloudwatch_log_group.this[0].name
           awslogs-region        = var.region
           awslogs-stream-prefix = "wordpress"
         }
