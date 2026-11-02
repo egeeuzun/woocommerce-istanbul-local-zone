@@ -42,10 +42,14 @@ output "nat_location" {
 
 output "private_egress_id" {
   description = "Ozel subnet'lerin internete cikisini tasiyan kaynaklar (NAT, route table ve baglantilari). Bunlara bagli olmasi gerekenler icin (bkz. lz/main.tf, terraform_data.private_egress)."
-  value = join(",", [
+  # NAT'in kendi subnet'inin IGW yolu da dahil: o silinirse NAT internete
+  # cikamaz, ECS agent'lari kopar ve destroy servis DRAINING'de takilir.
+  value = join(",", concat([
     aws_nat_gateway.this.id,
     aws_route_table.private.id,
     aws_route_table_association.app.id,
     aws_route_table_association.data.id,
-  ])
+    aws_route_table.public.id,
+    aws_route_table_association.public.id,
+  ], aws_route_table_association.nat_parent[*].id))
 }
