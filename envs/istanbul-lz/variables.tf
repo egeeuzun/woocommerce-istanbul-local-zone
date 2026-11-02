@@ -72,3 +72,10 @@ variable "branch" {
   type    = string
   default = "main"
 }
+
+variable "wp_admin_password" {
+  description = "WordPress yonetici parolasi. Bos = rastgele (SSM'den okunur)."
+  type        = string
+  default     = ""
+  sensitive   = true
+}

@@ -204,6 +204,12 @@ variable "admin_email" {
   default = "demo@example.com"
 }
 
+variable "admin_password_version" {
+  description = "Yonetici parolasi SSM parametresinin surumu. Task tanimina yazilir: parola degisince yeni deployment acilir ve imaj parolayi esitler."
+  type        = number
+  default     = 0
+}
+
 variable "admin_password_ssm_arn" {
   description = "auto_seed acikken yonetici parolasini tutan SSM SecureString parametresinin ARN'i"
   type        = string

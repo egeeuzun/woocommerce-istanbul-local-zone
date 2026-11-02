@@ -119,8 +119,9 @@ resource "aws_ssm_parameter" "wp_salt" {
   tags = { Name = "${local.name}-wp-salt-${lower(each.key)}" }
 }
 
-# WordPress yonetici parolasi; imaj ilk acilista bununla kurar (auto_seed).
-# Okumak icin: terraform output -raw admin_password_ssm_name
+# WordPress yonetici parolasi; imaj ilk acilista bununla kurar ve her acilista
+# yonetici parolasini buna esitler (auto_seed). var.wp_admin_password bossa
+# rastgele. Okumak icin: terraform output -raw admin_password_ssm_name
 resource "random_password" "admin" {
   length  = 24
   special = false
@@ -129,7 +130,7 @@ resource "random_password" "admin" {
 resource "aws_ssm_parameter" "admin_password" {
   name  = "/${local.name}/wp-admin-password"
   type  = "SecureString"
-  value = random_password.admin.result
+  value = var.wp_admin_password != "" ? var.wp_admin_password : random_password.admin.result
 
   tags = { Name = "${local.name}-wp-admin-password" }
 }
@@ -263,6 +264,7 @@ module "ecs" {
 
   auto_seed              = var.enable_auto_seed
   admin_password_ssm_arn = aws_ssm_parameter.admin_password.arn
+  admin_password_version = aws_ssm_parameter.admin_password.version
 
   efs_enabled          = var.enable_efs
   efs_id               = one(module.efs[*].efs_id)
