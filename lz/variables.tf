@@ -54,6 +54,17 @@ variable "db_data_volume_size" {
   default = 20
 }
 
+variable "db_snapshot_time_utc" {
+  description = "DLM'in gunluk EBS snapshot saati (UTC, HH:MM). DLM snapshot'i bu saatten sonraki bir saat icinde baslatir. Denetim icin geceyi beklememek uzere apply'dan ~1 saat sonrasina cekilebilir."
+  type        = string
+  default     = "00:00"
+
+  validation {
+    condition     = can(regex("^([01][0-9]|2[0-3]):[0-5][0-9]$", var.db_snapshot_time_utc))
+    error_message = "HH:MM biciminde olmali, ornegin 14:30."
+  }
+}
+
 variable "db_name" {
   type    = string
   default = "wordpress"
@@ -158,4 +169,27 @@ variable "repository_id" {
 variable "branch" {
   type    = string
   default = "main"
+}
+
+variable "enable_residency_audit" {
+  description = "Residency Guard'in salt okunur rolunu, denetim bucket'ini ve Athena tablolarini kurar"
+  type        = bool
+  default     = true
+}
+
+variable "residency_capture_enabled" {
+  description = "LZ VPC'sinin Flow Logs'unu ve DNS sorgu loglarini acar (IP adresi icerir). Yalnizca denetim penceresinde true yapin."
+  type        = bool
+  default     = false
+}
+
+variable "residency_log_retention_days" {
+  type    = number
+  default = 3
+}
+
+variable "residency_guard_trusted_principal_arns" {
+  description = "Guard rolunu ustlenebilecek principal'lar. Bos = bu hesap."
+  type        = list(string)
+  default     = []
 }

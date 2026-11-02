@@ -21,3 +21,12 @@ admin_extra_allowed_cidrs = ["203.0.113.4/32"]
 
 # Istanbul'da NAT gateway destegi dogrulanirsa:
 # nat_in_local_zone = true
+
+# Residency Guard denetim penceresi (Faz 4): LZ VPC'sinin Flow Logs'u ve DNS
+# sorgu loglari. IP adresi icerir; denetimden sonra false yapip apply edin.
+# residency_capture_enabled    = true
+# residency_log_retention_days = 3
+#
+# Ilk DLM snapshot'i icin geceyi beklememek: apply'dan ~1 saat sonrasi (UTC).
+# Turkiye saati UTC+3; ornegin 15:30 TR icin "12:30". Denetimden sonra silin.
+# db_snapshot_time_utc = "12:30"

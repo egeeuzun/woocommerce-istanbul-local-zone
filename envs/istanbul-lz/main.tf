@@ -48,11 +48,16 @@ module "lz" {
   db_instance_type  = var.db_instance_type
   desired_count     = 2
 
+  db_snapshot_time_utc = var.db_snapshot_time_utc
+
   admin_extra_allowed_cidrs = var.admin_extra_allowed_cidrs
   wp_admin_password         = var.wp_admin_password
 
   container_image = var.container_image
   image_tag       = var.image_tag
+
+  residency_capture_enabled    = var.residency_capture_enabled
+  residency_log_retention_days = var.residency_log_retention_days
 
   enable_cicd             = var.enable_cicd
   codestar_connection_arn = var.codestar_connection_arn

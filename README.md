@@ -129,7 +129,7 @@ Frankfurt setup shows up as "everything outside Türkiye" in the first report.
 | 2 | Demo store with fake data (wordpress-shop-demo) | Done |
 | 3 | "Hybrid" period: app in Frankfurt, database on-premises over a VPN | Planned |
 | 4 | Move to the Istanbul Local Zone (`envs/istanbul-lz`) | First version written, not yet applied |
-| 5–6 | Residency Guard: check, fix, check again | Planned |
+| 5–6 | Residency Guard: check, fix, check again | First report done (02.11.2026: 12 ❌, 4 ⚠️, 14 ✅); fixes and second run pending |
 | 7 | CI checks that block a database outside Türkiye | Planned |
 | 8 | Compare speed, cost and effort for each step | Planned |
 
@@ -147,6 +147,7 @@ been applied to an AWS account yet.
 | `lz/` | Root module for the Local Zone setup. |
 | `docs/adr/` | Decision records (why EC2 instead of Fargate, why MariaDB on EC2). |
 | `modules/` | The building blocks below. |
+| `../residency-guard/` | Separate repo, checked out next to this one: the read-only audit tool (Python, boto3) that reads `terraform output residency_guard`, and its reports. See its README (in Turkish). |
 | `docs/00-envanter.md` | Inventory of what this repo and the image deploy (in Turkish). |
 
 ## Modules
@@ -169,6 +170,7 @@ been applied to an AWS account yet.
 | `backup` | AWS Backup plan and vault |
 | `vpn` | Pritunl VPN server for admin access to private subnets |
 | `cicd` | CodePipeline and CodeBuild for image build and ECS deploy |
+| `residency-audit` | Read-only role for Residency Guard, audit bucket, Athena tables; VPC Flow Logs and DNS query logs during an audit window |
 
 ## Usage
 

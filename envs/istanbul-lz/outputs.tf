@@ -41,3 +41,8 @@ output "static_bucket_name" {
 output "admin_password_ssm_name" {
   value = module.lz.admin_password_ssm_name
 }
+
+output "residency_guard" {
+  description = "terraform output -json residency_guard > ../../residency-guard/guard.json"
+  value       = module.lz.residency_guard
+}
