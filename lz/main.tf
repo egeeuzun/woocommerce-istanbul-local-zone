@@ -162,6 +162,7 @@ module "db" {
   security_group_id = module.security.rds_sg_id
   instance_type     = var.db_instance_type
   data_volume_size  = var.db_data_volume_size
+  snapshot_time_utc = var.db_snapshot_time_utc
 
   db_name              = var.db_name
   db_username          = var.db_username
@@ -281,4 +282,19 @@ module "cicd" {
   codestar_connection_arn = var.codestar_connection_arn
   repository_id           = var.repository_id
   branch                  = var.branch
+}
+
+# --- Residency Guard (Faz 4) --------------------------------------------------
+
+# Guard'in salt okunur rolu ve Athena tablolari her zaman durur (ucretsiz).
+# Flow Logs ve DNS sorgu loglari yalnizca residency_capture_enabled ile acilir.
+module "residency_audit" {
+  source = "../modules/residency-audit"
+  count  = var.enable_residency_audit ? 1 : 0
+
+  name                   = local.name
+  vpc_id                 = module.network.vpc_id
+  capture_enabled        = var.residency_capture_enabled
+  retention_days         = var.residency_log_retention_days
+  trusted_principal_arns = var.residency_guard_trusted_principal_arns
 }

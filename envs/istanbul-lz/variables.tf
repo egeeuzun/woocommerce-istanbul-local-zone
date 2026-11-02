@@ -79,3 +79,25 @@ variable "wp_admin_password" {
   default     = ""
   sensitive   = true
 }
+
+variable "db_snapshot_time_utc" {
+  description = "DLM'in gunluk EBS snapshot saati (UTC, HH:MM). DLM snapshot'i bu saatten sonraki bir saat icinde baslatir. Denetim icin geceyi beklememek uzere apply'dan ~1 saat sonrasina cekilebilir."
+  type        = string
+  default     = "00:00"
+
+  validation {
+    condition     = can(regex("^([01][0-9]|2[0-3]):[0-5][0-9]$", var.db_snapshot_time_utc))
+    error_message = "HH:MM biciminde olmali, ornegin 14:30."
+  }
+}
+
+variable "residency_capture_enabled" {
+  description = "Residency Guard denetim penceresi: Flow Logs ve DNS sorgu loglarini acar (IP adresi icerir, retention gun sonra silinir). Denetimden sonra false yapip tekrar apply edin."
+  type        = bool
+  default     = false
+}
+
+variable "residency_log_retention_days" {
+  type    = number
+  default = 3
+}

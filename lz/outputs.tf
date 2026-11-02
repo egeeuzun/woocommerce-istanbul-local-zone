@@ -64,3 +64,22 @@ output "admin_password_ssm_name" {
   description = "WordPress yonetici parolasi: aws ssm get-parameter --with-decryption --query Parameter.Value --output text --name <bu deger>"
   value       = aws_ssm_parameter.admin_password.name
 }
+
+# residency-guard --config icin: terraform output -json residency_guard > guard.json
+output "residency_guard" {
+  description = "Residency Guard ayarlari (../residency-guard/README.md)"
+  value = {
+    region           = var.region
+    local_zone       = module.network.local_zone
+    local_zone_id    = module.network.local_zone_id
+    vpc_id           = module.network.vpc_id
+    role_arn         = try(module.residency_audit[0].role_arn, null)
+    audit_bucket     = try(module.residency_audit[0].bucket_name, null)
+    athena_workgroup = try(module.residency_audit[0].athena_workgroup, null)
+    glue_database    = try(module.residency_audit[0].glue_database, null)
+    flow_logs_table  = try(module.residency_audit[0].flow_logs_table, null)
+    dns_logs_table   = try(module.residency_audit[0].dns_logs_table, null)
+    capture_enabled  = try(module.residency_audit[0].capture_enabled, false)
+    retention_days   = try(module.residency_audit[0].retention_days, null)
+  }
+}
