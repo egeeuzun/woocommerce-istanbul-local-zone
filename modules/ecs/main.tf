@@ -35,6 +35,9 @@ locals {
     { name = "SHOP_AUTO_SEED", value = "1" },
     { name = "WORDPRESS_ADMIN_USER", value = var.admin_username },
     { name = "WORDPRESS_ADMIN_EMAIL", value = var.admin_email },
+    # Secret'lar task acilirken okunur; SSM'deki parola degisince task'lar
+    # kendiliginden yenilenmez. Surum task tanimina girince yenilenir.
+    { name = "WORDPRESS_ADMIN_PASSWORD_VERSION", value = tostring(var.admin_password_version) },
   ] : []
 
   auto_seed_secrets = var.auto_seed ? [

@@ -4,6 +4,12 @@
 # kisitlamasiz kalir (WAF yine aktif).
 admin_extra_allowed_cidrs = ["203.0.113.4/32"]
 
+# WordPress yonetici (admin) parolasi. Yorumda = Terraform rastgele uretir:
+#   aws ssm get-parameter --with-decryption --query Parameter.Value --output text \
+#     --name $(terraform output -raw admin_password_ssm_name)
+# Verilirse SSM'e yazilir, task'lar yenilenir ve imaj parolayi esitler.
+# wp_admin_password = "admin123"
+
 # Calistirilacak imaj. Bos/yorumda = <ecr_repository_url>:latest
 # image_tag = "c6d08b7"
 

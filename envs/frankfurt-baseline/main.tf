@@ -64,6 +64,7 @@ module "main" {
   vpn_admin_cidrs           = var.vpn_admin_cidrs
   vpn_wireguard_port        = var.vpn_wireguard_port
   admin_extra_allowed_cidrs = var.admin_extra_allowed_cidrs
+  wp_admin_password         = var.wp_admin_password
 
   container_image = var.container_image
   image_tag       = var.image_tag

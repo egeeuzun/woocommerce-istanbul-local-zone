@@ -129,6 +129,13 @@ variable "enable_elasticache" {
   default     = true
 }
 
+variable "wp_admin_password" {
+  description = "WordPress yonetici parolasi (admin). Bos = Terraform rastgele uretir. Imaj her task acilisinda parolayi bu degerle esitler; degistirmek task'lari yeniler."
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
 variable "enable_auto_seed" {
   description = "Imaj acilista WordPress'i kurar ve seed'i calistirir (SHOP_AUTO_SEED=1, wordpress-shop-demo imaji); elle wp core install / seed gerekmez."
   type        = bool
