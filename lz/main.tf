@@ -211,6 +211,9 @@ module "ecs" {
   enable_execute_command = var.enable_ecs_exec
   capacity_provider_name = module.capacity.capacity_provider_name
 
+  # Exec oturum ciktisi Frankfurt'taki CloudWatch'a yazilmasin (RG-002)
+  exec_logging = "NONE"
+
   db_host             = module.db.endpoint
   db_name             = var.db_name
   db_username         = var.db_username

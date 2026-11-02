@@ -48,6 +48,10 @@ locals {
     var.efs_enabled ? [var.efs_access_point_arn] : [],
     var.shared_code_enabled ? [var.efs_plugins_access_point_arn, var.efs_themes_access_point_arn] : [],
   )
+
+  # Exec oturumlari yalnizca OVERRIDE'da CloudWatch'a yazilir. Local Zone'da
+  # CloudWatch yok; LZ NONE kullanir (RG-002).
+  exec_log_to_cloudwatch = var.enable_execute_command && var.exec_logging == "OVERRIDE"
 }
 
 resource "aws_appautoscaling_target" "this" {
@@ -94,10 +98,13 @@ resource "aws_ecs_cluster" "this" {
     for_each = var.enable_execute_command ? [1] : []
     content {
       execute_command_configuration {
-        logging = "OVERRIDE"
+        logging = var.exec_logging
 
-        log_configuration {
-          cloud_watch_log_group_name = aws_cloudwatch_log_group.exec[0].name
+        dynamic "log_configuration" {
+          for_each = local.exec_log_to_cloudwatch ? [1] : []
+          content {
+            cloud_watch_log_group_name = aws_cloudwatch_log_group.exec[0].name
+          }
         }
       }
     }
@@ -105,7 +112,7 @@ resource "aws_ecs_cluster" "this" {
 }
 
 resource "aws_cloudwatch_log_group" "exec" {
-  count             = var.enable_execute_command ? 1 : 0
+  count             = local.exec_log_to_cloudwatch ? 1 : 0
   name              = "/ecs/${var.name}-exec"
   retention_in_days = 30
 
@@ -226,33 +233,37 @@ resource "aws_iam_role_policy" "task_exec_command" {
 
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "ssmmessages:CreateControlChannel",
-          "ssmmessages:CreateDataChannel",
-          "ssmmessages:OpenControlChannel",
-          "ssmmessages:OpenDataChannel",
-        ]
-        Resource = "*"
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "logs:DescribeLogGroups",
-        ]
-        Resource = "*"
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "logs:CreateLogStream",
-          "logs:PutLogEvents",
-        ]
-        Resource = "${aws_cloudwatch_log_group.exec[0].arn}:*"
-      },
-    ]
+    Statement = concat(
+      [
+        {
+          Effect = "Allow"
+          Action = [
+            "ssmmessages:CreateControlChannel",
+            "ssmmessages:CreateDataChannel",
+            "ssmmessages:OpenControlChannel",
+            "ssmmessages:OpenDataChannel",
+          ]
+          Resource = "*"
+        },
+      ],
+      local.exec_log_to_cloudwatch ? [
+        {
+          Effect = "Allow"
+          Action = [
+            "logs:DescribeLogGroups",
+          ]
+          Resource = "*"
+        },
+        {
+          Effect = "Allow"
+          Action = [
+            "logs:CreateLogStream",
+            "logs:PutLogEvents",
+          ]
+          Resource = "${aws_cloudwatch_log_group.exec[0].arn}:*"
+        },
+      ] : [],
+    )
   })
 }
 

@@ -215,3 +215,14 @@ variable "admin_password_ssm_arn" {
   type        = string
   default     = ""
 }
+
+variable "exec_logging" {
+  description = "ECS Exec oturum çıktısının kaydı: OVERRIDE = CloudWatch Logs'a yazar, NONE = kaydetmez. Local Zone'da CloudWatch olmadığından LZ'de NONE kullanılır (RG-002)."
+  type        = string
+  default     = "OVERRIDE"
+
+  validation {
+    condition     = contains(["OVERRIDE", "NONE"], var.exec_logging)
+    error_message = "OVERRIDE ya da NONE olmalı."
+  }
+}
