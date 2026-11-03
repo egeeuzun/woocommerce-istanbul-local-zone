@@ -1,6 +1,6 @@
 # Çalıştırma kılavuzu
 
-[English](running-guide.md) · **Türkçe** · [README](../README.tr.md)
+[English](MANUAL.md) · **Türkçe** · [README](README.tr.md)
 
 Bu kılavuz, boş bir AWS hesabından çalışan bir *Yerel Market* mağazasına,
 sonra da tekrar sıfır maliyete giden yolu adım adım anlatır. İki ortamdan

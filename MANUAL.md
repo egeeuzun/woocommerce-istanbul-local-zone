@@ -1,6 +1,6 @@
 # Running guide
 
-**English** · [Türkçe](calistirma-kilavuzu.md) · [README](../README.md)
+**English** · [Türkçe](MANUAL.tr.md) · [README](README.md)
 
 This guide takes you step by step from an empty AWS account to a working
 *Yerel Market* store, and back to zero cost. You can deploy either environment
