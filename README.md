@@ -1,8 +1,8 @@
 # terraform-aws-wordpress-ha
 
-**English** · [Türkçe](README.tr.md) · [Manual](MANUAL.md)
+**English** · [Türkçe](README.tr.md) · [Manual](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/Running-Guide)
 
-> **New here?** The step-by-step [running guide](MANUAL.md) walks
+> **New here?** The step-by-step [running guide](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/Running-Guide) walks
 > you from an empty AWS account to a working store and back to zero cost.
 
 Terraform code for a WooCommerce store on AWS, and a project to move it from
@@ -154,7 +154,7 @@ been applied to an AWS account yet.
 | `modules/` | The building blocks below. |
 | `../residency-guard/` | Separate repo ([egeeuzun/residency-guard](https://github.com/egeeuzun/residency-guard)), checked out next to this one: the read-only audit tool (Python, boto3) that reads `terraform output residency_guard`, and its reports. See its README (in Turkish). |
 | `docs/00-envanter.md` | Inventory of what this repo and the image deploy (in Turkish). |
-| `MANUAL.md` | Step-by-step guide to deploy, check and tear down ([Türkçe](MANUAL.tr.md)). |
+| [Wiki](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/Running-Guide) | Step-by-step running guide to deploy, check and tear down ([Türkçe](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/%C3%87al%C4%B1%C5%9Ft%C4%B1rma-K%C4%B1lavuzu)). |
 
 ## Modules
 
@@ -182,7 +182,7 @@ been applied to an AWS account yet.
 
 This is the short version. For prerequisites, image build, checks after
 deploy, tear-down and troubleshooting, see the
-[running guide](MANUAL.md).
+[running guide](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/Running-Guide).
 
 **1. Bootstrap (once per account)**
 

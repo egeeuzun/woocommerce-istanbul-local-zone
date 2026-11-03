@@ -1,8 +1,8 @@
 # terraform-aws-wordpress-ha
 
-[English](README.md) · **Türkçe** · [Kılavuz](MANUAL.tr.md)
+[English](README.md) · **Türkçe** · [Kılavuz](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/%C3%87al%C4%B1%C5%9Ft%C4%B1rma-K%C4%B1lavuzu)
 
-> **İlk kez mi kuruyorsunuz?** Adım adım [çalıştırma kılavuzu](MANUAL.tr.md)
+> **İlk kez mi kuruyorsunuz?** Adım adım [çalıştırma kılavuzu](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/%C3%87al%C4%B1%C5%9Ft%C4%B1rma-K%C4%B1lavuzu)
 > sizi boş bir AWS hesabından çalışan bir mağazaya, sonra da tekrar sıfır
 > maliyete götürür.
 
@@ -154,7 +154,7 @@ henüz bir AWS hesabına uygulanmadı.
 | `modules/` | Aşağıdaki yapı taşları. |
 | `../residency-guard/` | Ayrı repo ([egeeuzun/residency-guard](https://github.com/egeeuzun/residency-guard)), bu reponun yanına klonlanır: `terraform output residency_guard` çıktısını okuyan salt okunur denetim aracı (Python, boto3) ve raporları. Bkz. README'si. |
 | `docs/00-envanter.md` | Bu reponun ve imajın kurduğu her şeyin dökümü. |
-| `MANUAL.tr.md` | Kurulum, kontrol ve kaldırma için adım adım kılavuz ([English](MANUAL.md)). |
+| [Wiki](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/%C3%87al%C4%B1%C5%9Ft%C4%B1rma-K%C4%B1lavuzu) | Kurulum, kontrol ve kaldırma için adım adım kılavuz ([English](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/Running-Guide)). |
 
 ## Modüller
 
@@ -181,7 +181,7 @@ henüz bir AWS hesabına uygulanmadı.
 ## Kullanım
 
 Bu kısa sürüm. Ön koşullar, imaj build'i, deploy sonrası kontroller, kaldırma
-ve sorun giderme için [çalıştırma kılavuzuna](MANUAL.tr.md) bakın.
+ve sorun giderme için [çalıştırma kılavuzuna](https://github.com/egeeuzun/woocommerce-istanbul-local-zone/wiki/%C3%87al%C4%B1%C5%9Ft%C4%B1rma-K%C4%B1lavuzu) bakın.
 
 **1. Bootstrap (hesap başına bir kez)**
 
