@@ -1,5 +1,10 @@
 # terraform-aws-wordpress-ha
 
+**English** · [Türkçe](README.tr.md)
+
+> **New here?** The step-by-step [running guide](docs/running-guide.md) walks
+> you from an empty AWS account to a working store and back to zero cost.
+
 Terraform code for a WooCommerce store on AWS, and a project to move it from
 **Frankfurt** to the **AWS Istanbul Local Zone** so that customer data stays in
 Türkiye.
@@ -149,6 +154,7 @@ been applied to an AWS account yet.
 | `modules/` | The building blocks below. |
 | `../residency-guard/` | Separate repo ([egeeuzun/residency-guard](https://github.com/egeeuzun/residency-guard)), checked out next to this one: the read-only audit tool (Python, boto3) that reads `terraform output residency_guard`, and its reports. See its README (in Turkish). |
 | `docs/00-envanter.md` | Inventory of what this repo and the image deploy (in Turkish). |
+| `docs/running-guide.md` | Step-by-step guide to deploy, check and tear down ([Türkçe](docs/calistirma-kilavuzu.md)). |
 
 ## Modules
 
@@ -174,6 +180,10 @@ been applied to an AWS account yet.
 
 ## Usage
 
+This is the short version. For prerequisites, image build, checks after
+deploy, tear-down and troubleshooting, see the
+[running guide](docs/running-guide.md).
+
 **1. Bootstrap (once per account)**
 
 ```bash
@@ -181,6 +191,7 @@ cd bootstrap
 cp terraform.tfvars.example terraform.tfvars   # set budget_emails
 terraform init && terraform apply
 terraform output -raw backend_hcl > ../envs/frankfurt-baseline/backend.hcl
+terraform output -raw backend_hcl > ../envs/istanbul-lz/backend.hcl
 ```
 
 AWS sends a confirmation e-mail for the budget alarm; nothing arrives until you
