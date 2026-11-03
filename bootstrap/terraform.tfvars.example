@@ -1,0 +1,11 @@
+# terraform.tfvars olarak kopyalayin (*.tfvars git'e girmez).
+# Copy to terraform.tfvars (*.tfvars is not committed).
+
+# Butce alarmlarinin gidecegi adresler (zorunlu). AWS her adrese bir onay
+# e-postasi gonderir; onaylanmadan alarm gelmez.
+# Budget alarm recipients (required). Each address must confirm AWS's e-mail.
+budget_emails = ["you@example.com"]
+
+# Aylik harcama esikleri (USD), en buyugu butce limiti olur. 1-4 deger.
+# Monthly spend thresholds in USD; the largest is the budget limit. 1-4 values.
+# budget_thresholds_usd = [30, 60, 100]
